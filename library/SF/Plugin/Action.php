@@ -15,8 +15,8 @@ class SF_Plugin_Action extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request) {
         global $logger;
         
-        SF_Log::info(__METHOD__,
-            'Request: module='.$request->getModuleName().
+        Logger::info(__METHOD__.
+            ': Request: module='.$request->getModuleName().
             ' controller='.$request->getControllerName().
             ' action='.$request->getActionName()
         );

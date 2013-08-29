@@ -1,4 +1,5 @@
 <?php
-error_log('REQUEST_URI='.$_SERVER['REQUEST_URI']);
+error_log('METHOD='.$_SERVER['REQUEST_METHOD'].
+          ' REQUEST_URI='.$_SERVER['REQUEST_URI']);
 
 require '../application/startup.php';
