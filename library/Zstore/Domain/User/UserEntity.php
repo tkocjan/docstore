@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM,
     Logger;
 
 /** @ORM\Entity(repositoryClass="Zstore\Domain\Doctrine\DocUserRepository")
- *  @ORM\Table(name="User") */
+ *  @ORM\Table(name="user") */
 class UserEntity extends Entity implements IUserEntity
 {    
     /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer") @var integer */

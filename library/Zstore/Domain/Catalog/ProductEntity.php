@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM,
     Exception;
 
 /** @ORM\Entity(repositoryClass="Zstore\Domain\Doctrine\DocProductRepository")
- *  @ORM\Table(name="Product") */
+ *  @ORM\Table(name="product") */
 class ProductEntity extends Entity implements IProductEntity {
 
     /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer") @var integer */

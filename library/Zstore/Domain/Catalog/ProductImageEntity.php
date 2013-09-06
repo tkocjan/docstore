@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM,
     Zstore\Domain\Catalog\IProductImageEntity;
 
 /** @ORM\Entity
- *  @ORM\Table(name="ProductImage") */
+ *  @ORM\Table(name="productImage") */
 class ProductImageEntity extends Entity implements IProductImageEntity
 {    
     /** @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer") @var integer */
