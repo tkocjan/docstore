@@ -125,7 +125,8 @@ class Storefront_CatalogController extends Zend_Controller_Action
                 PRODUCT_PAGE_SIZE,
                 array('name')
             );
-        Debug::dump($products);
+        $d = Debug::export($products, 3);
+        Logger::info('product='.print_r($d, true));
 
         $category = $this->_catalogService->//getCached('category')->
             getCategoryByIdent($this->_getParam('categoryIdent', ''));
@@ -133,12 +134,14 @@ class Storefront_CatalogController extends Zend_Controller_Action
             throw new SF_Exception_404('Unknown category ' . 
                 $this->_getParam('categoryIdent'));
         }
-        Debug::dump($category);
+        $d = Debug::export($category, 3);
+        Logger::info('category='.print_r($d, true));
 
         //Logger::info(__METHOD__.': $categoryId='.var_export($category->categoryId, true));        
         $subs = $this->_catalogService->//getCached('category')->
             getCategoriesThatHaveParentId($category->categoryId);
-        Debug::dump($subs);
+        $d = Debug::export($subs, 3);
+        Logger::info('subs='.print_r($d, true));
         $this->getBreadcrumb($category);
  
         $this->view->assign(array(
