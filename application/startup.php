@@ -13,7 +13,7 @@ error_log(__METHOD__.': APPLICATION_ENV='.APPLICATION_ENV);
 require_once APPLICATION_PATH.'/constants.php';
 
 $includePaths = array(
-    realpath(APPLICATION_PATH.'/../../libphp'),
+//    realpath(APPLICATION_PATH.'/../../libphp'),
     realpath(APPLICATION_PATH.'/../library'),
     get_include_path());
 

@@ -218,20 +218,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->_view->headLink()->appendStylesheet($baseUrl.'/assets/reset.css');
         $this->_view->headLink()->appendStylesheet($baseUrl.'/assets/main.css');
         $this->_view->headLink()->appendStylesheet($baseUrl.'/assets/form.css');
-        $this->_view->headLink()->appendStylesheet('/js/bootstrap/2.3.0/css/bootstrap.css');
-        $this->_view->headLink()->appendStylesheet('/js/bootstrap/2.3.0/css/bootstrap-responsive.css');
+        $this->_view->headLink()->appendStylesheet($baseUrl.'/js/bootstrap/2.3.0/css/bootstrap.css');
+        $this->_view->headLink()->appendStylesheet($baseUrl.'/js/bootstrap/2.3.0/css/bootstrap-responsive.css');
         $this->_view->headLink()->appendStylesheet($baseUrl.'/assets/my-bootstrap.css');
 
         //for head section
         $this->_view->headScript()->setFile(
-                'http://html5shim.googlecode.com/svn/trunk/html5.js',
+                $baseUrl.'/js/html5shiv/3.6.2/html5shiv.js',
                 'text/javascript',
                 array('conditional' => 'lt IE 9'));
         
         //for bottom of html file
         $this->_view->inlineScript()->setFile($baseUrl.'/js/jquery/1.9.1/jquery-1.9.1.js');
 //        $this->_view->inlineScript()->appendFile($baseUrl.'/js/bootstrap/2.3.0/js/bootstrap.js');
-        $this->_view->inlineScript()->appendFile('/js/bootstrap/2.3.0/js/bootstrap.js');
+        $this->_view->inlineScript()->appendFile($baseUrl.'/js/bootstrap/2.3.0/js/bootstrap.js');
        // $this->_view->headScriptBottom = $this->_view->headScript()->toString();
         
         // setting the site in the title

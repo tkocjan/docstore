@@ -1,11 +1,4 @@
-/library/Zend/
-/data/
+/data/**/*
+/data/**/**/*
 /tests/log/
-/nbproject/private/
-/library/Bisna/nbproject/private/
-/library/Bisna/
-/library/Symfony/
-/library/Doctrine/
-/library/Doctrine_1/
-/library/Bisna_1/
-/library/Bisna_new/nbproject/private/
+/nbproject
