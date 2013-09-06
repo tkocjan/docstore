@@ -14,35 +14,73 @@ class Storefront_CatalogController extends Zend_Controller_Action
         
         $this->_catalogService = new Zstore\Domain\Catalog\CatalogService();
         
-        /*
-        //mongodb
-        $m = new MongoClient();
+        //$this->doctrineTest();        
+    }
 
-        // select a database
-        $db = $m->comedy;
+    public function indexAction()
+    {
+        //Logger::info(__METHOD__.': entry');
+        
+        $products = $this->_catalogService->//getCached('product')->
+            getProductsByCategory(
+                $this->_getParam('categoryIdent', 0),
+		$this->_getParam('page', 1),
+                PRODUCT_PAGE_SIZE,
+                array('name')
+            );
+        //$d = Debug::export($products, 3);
+        //Logger::info('product='.print_r($d, true));
 
-        // select a collection (analogous to a relational database's table)
-        $collection = $db->cartoons;
-
-        // add a record
-        //$document = array( "title" => "Calvin and Hobbes", "author" => "Bill Watterson" );
-        //$collection->insert($document);
-
-        // add another record, with a different "shape"
-        //$document = array( "title" => "XKCD", "online" => true );
-        //$collection->insert($document);
-
-        // find everything in the collection
-        $cursor = $collection->find();
-
-        // iterate through the results
-        foreach ($cursor as $document) {
-            Logger::info(__METHOD__.': mongo='.$document["title"]);
+        $category = $this->_catalogService->//getCached('category')->
+            getCategoryByIdent($this->_getParam('categoryIdent', ''));
+        if (null === $category) {
+            throw new SF_Exception_404('Unknown category ' . 
+                $this->_getParam('categoryIdent'));
         }
-         * 
-         */
+        //$d = Debug::export($category, 3);
+        //Logger::info('category='.print_r($d, true));
 
-        /*
+        //Logger::info(__METHOD__.': $categoryId='.var_export($category->categoryId, true));        
+        $subs = $this->_catalogService->//getCached('category')->
+            getCategoriesThatHaveParentId($category->categoryId);
+        //$d = Debug::export($subs, 3);
+        //Logger::info('subs='.print_r($d, true));
+        $this->getBreadcrumb($category);
+ 
+        $this->view->assign(array(
+            'category' => $category,
+            'subCategories' => $subs,
+            'products' => $products
+        ));
+    }
+    
+    public function viewAction()
+    {
+        $product = $this->_catalogService->getProductByIdent(
+                $this->_getParam('productIdent', 0));
+        
+        if (null === $product) {
+            throw new SF_Exception_404(
+                    'Unknown product ' . $this->_getParam('productIdent'));
+        }
+        
+        $category = $this->_catalogService->getCategoryByIdent(
+                $this->_getParam('categoryIdent', ''));
+        $this->getBreadcrumb($category);
+        
+        $this->view->assign(array(
+            'product' => $product,
+            )
+        );
+    }
+    
+    public function getBreadcrumb($category)
+    {
+        $this->view->bread = 
+            $this->_catalogService->getParentCategories($category);
+    }
+    
+    protected function doctrineTest() {
         //below is for doctrine testing
         $userClassname = '\Zstore\Domain\User\UserEntity';
         $productClassname = '\Zstore\Domain\Catalog\ProductEntity';
@@ -110,70 +148,5 @@ class Storefront_CatalogController extends Zend_Controller_Action
         $userRef = $em->getReference($userClassname, 1);
         Logger::info(__METHOD__.': get_class($userRef)='.get_class($userRef));
         Logger::info(__METHOD__.': $userRef->getTitle()='.$userRef->title);
-         * 
-         */
-    }
-
-    public function indexAction()
-    {
-        //Logger::info(__METHOD__.': entry');
-        
-        $products = $this->_catalogService->//getCached('product')->
-            getProductsByCategory(
-                $this->_getParam('categoryIdent', 0),
-		$this->_getParam('page', 1),
-                PRODUCT_PAGE_SIZE,
-                array('name')
-            );
-        $d = Debug::export($products, 3);
-        Logger::info('product='.print_r($d, true));
-
-        $category = $this->_catalogService->//getCached('category')->
-            getCategoryByIdent($this->_getParam('categoryIdent', ''));
-        if (null === $category) {
-            throw new SF_Exception_404('Unknown category ' . 
-                $this->_getParam('categoryIdent'));
-        }
-        $d = Debug::export($category, 3);
-        Logger::info('category='.print_r($d, true));
-
-        //Logger::info(__METHOD__.': $categoryId='.var_export($category->categoryId, true));        
-        $subs = $this->_catalogService->//getCached('category')->
-            getCategoriesThatHaveParentId($category->categoryId);
-        $d = Debug::export($subs, 3);
-        Logger::info('subs='.print_r($d, true));
-        $this->getBreadcrumb($category);
- 
-        $this->view->assign(array(
-            'category' => $category,
-            'subCategories' => $subs,
-            'products' => $products
-        ));
-    }
-    
-    public function viewAction()
-    {
-        $product = $this->_catalogService->getProductByIdent(
-                $this->_getParam('productIdent', 0));
-        
-        if (null === $product) {
-            throw new SF_Exception_404(
-                    'Unknown product ' . $this->_getParam('productIdent'));
-        }
-        
-        $category = $this->_catalogService->getCategoryByIdent(
-                $this->_getParam('categoryIdent', ''));
-        $this->getBreadcrumb($category);
-        
-        $this->view->assign(array(
-            'product' => $product,
-            )
-        );
-    }
-    
-    public function getBreadcrumb($category)
-    {
-        $this->view->bread = 
-            $this->_catalogService->getParentCategories($category);
     }
 }

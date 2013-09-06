@@ -5,8 +5,8 @@ INSERT INTO `category` VALUES  (1,'Cashmere',6,'cashmere'),
  (3,'Woolen',6,'woolen'),
  (4,'Caps',7,'caps'),
  (5,'Beenie',7,'beenie'),
- (6,'Scarves',0,'scarves'),
- (7,'Hats',0,'hats'),
+ (6,'Scarves',null,'scarves'),
+ (7,'Hats',null,'hats'),
  (8,'red-eye',5,'red-eye');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;

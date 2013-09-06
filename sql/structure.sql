@@ -2,10 +2,11 @@
 -- Definition of table `storefront`.`category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE  `category` (
   `categoryId` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(200) NOT NULL,
-  `parentId` int(10) unsigned NOT NULL,
+  `parentId` int(10) unsigned NULL,
   `ident` varchar(200) NOT NULL,
   PRIMARY KEY  (`categoryId`),
   UNIQUE KEY `ident` (`ident`),
@@ -16,6 +17,7 @@ CREATE TABLE  `category` (
 -- Definition of table `storefront`.`product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE  `product` (
   `productId` int(10) unsigned NOT NULL auto_increment,
   `categoryId` int(10) unsigned NOT NULL,
@@ -35,6 +37,7 @@ CREATE TABLE  `product` (
 -- Definition of table `storefront`.`productImage`
 --
 
+DROP TABLE IF EXISTS `productImage`;
 CREATE TABLE  `productImage` (
   `imageId` int(10) unsigned NOT NULL auto_increment,
   `productId` int(10) unsigned NOT NULL,
@@ -50,6 +53,7 @@ CREATE TABLE  `productImage` (
 -- Definition of table `storefront`.`user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE  `user` (
   `userId` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(10) NOT NULL,
@@ -68,6 +72,7 @@ CREATE TABLE  `user` (
 -- Definition of table `storefront`.`page`
 --
 
+DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `pageId` INT NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
