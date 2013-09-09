@@ -1,4 +1,7 @@
-/data/**/*
-/data/**/**/*
+/data/cache/*
+/data/cache/db/*
+/data/cache/ini/*
+/data/cache/meta/*
+/data/session/*
 /tests/log/
 /nbproject
